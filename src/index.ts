@@ -1,19 +1,16 @@
-import { SocketModeClient } from "@slack/socket-mode";
-require("dotenv").config();
+require("dotenv").config(); // 항상 맨 첫째줄에
 
-// Read a token from the environment variables
-const appToken = process.env.SLACK_APP_TOKEN;
+import { socketClient } from "./clients/socket-client";
+import { allMessageLinstener } from "./listeners/message";
+import { createDictCommandLinstener } from "./listeners/create-dict-command";
+import { createDictSubmissionListener } from "./listeners/create-dict-submission";
 
-// Initialize
-const socketModeClient = new SocketModeClient({ appToken });
-
-socketModeClient.on("message", async ({ event, body, ack }) => {
-  console.log({ body, event });
-  await ack({ text: "I got it!" });
-});
+socketClient.on("message", allMessageLinstener);
+socketClient.on("slash_commands", createDictCommandLinstener);
+socketClient.on("interactive", createDictSubmissionListener);
 
 (async () => {
   // Connect to Slack
   console.log("🔥 socket mode is running");
-  await socketModeClient.start();
+  await socketClient.start();
 })();

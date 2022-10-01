@@ -1,0 +1,69 @@
+{
+  "type": "view_submission",
+  "team": { "id": "T01UTREDALC", "domain": "we-2rl7529" },
+  "user": {
+    "id": "U01VBGWF55W",
+    "username": "guseod24",
+    "name": "guseod24",
+    "team_id": "T01UTREDALC"
+  },
+  "api_app_id": "A044QQJDHNF",
+  "token": "UrtdFv6HscHJq9XC7mLHLxjt",
+  "trigger_id": "4158147897109.1979864452692.775b008e106c2369ce6137bf6fb5c11b",
+  "view": {
+    "id": "V044TGCPYBE",
+    "team_id": "T01UTREDALC",
+    "type": "modal",
+    "blocks": [
+      {
+        "type": "input",
+        "block_id": "word-description",
+        "label": {
+          "type": "plain_text",
+          "text": "'sidhd'에 대해 설명을 작성해주세요 :)",
+          "emoji": true
+        },
+        "optional": false,
+        "dispatch_action": false,
+        "element": {
+          "type": "plain_text_input",
+          "multiline": true,
+          "max_length": 1000,
+          "focus_on_load": true,
+          "dispatch_action_config": {
+            "trigger_actions_on": ["on_enter_pressed"]
+          },
+          "action_id": "/T0"
+        }
+      }
+    ],
+    "private_metadata": "",
+    "callback_id": "create-dict",
+    "state": {
+      "values": {
+        "word-description": {
+          "/T0": { "type": "plain_text_input", "value": "냐옹~" }
+        }
+      }
+    },
+    "hash": "1664621558.jN5FXFFb",
+    "title": {
+      "type": "plain_text",
+      "text": "사전에 단어 추가하기",
+      "emoji": true
+    },
+    "clear_on_close": false,
+    "notify_on_close": false,
+    "close": { "type": "plain_text", "text": "닫기", "emoji": true },
+    "submit": { "type": "plain_text", "text": "추가", "emoji": true },
+    "previous_view_id": null,
+    "root_view_id": "V044TGCPYBE",
+    "app_id": "A044QQJDHNF",
+    "external_id": "",
+    "app_installed_team_id": "T01UTREDALC",
+    "bot_id": "B045EK2TP96"
+  },
+  "response_urls": [],
+  "is_enterprise_install": false,
+  "enterprise": null
+}
