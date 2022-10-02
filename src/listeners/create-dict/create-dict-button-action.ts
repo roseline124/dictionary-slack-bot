@@ -1,6 +1,6 @@
 import { SlackEventListenerFn } from "../../types/slack-listener";
-import { CREATE_DICT_CALLBACK_ID } from "./constants";
-import { openCreateDictModal } from "./open-create-dict-modal";
+import { CREATE_DICT_CALLBACK_ID } from "../constants";
+import { openDictModal } from "../open-dict-modal";
 
 export const createDictButtonLinstener: SlackEventListenerFn<
   "interactive"
@@ -13,5 +13,9 @@ export const createDictButtonLinstener: SlackEventListenerFn<
     return;
   }
 
-  await openCreateDictModal(body.trigger_id, body.actions[0].value);
+  await openDictModal({
+    triggerId: body.trigger_id,
+    wordTitle: body.actions[0].value,
+    callbackId: CREATE_DICT_CALLBACK_ID,
+  });
 };

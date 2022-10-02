@@ -2,19 +2,19 @@ import { HeaderBlock } from "@slack/web-api";
 import { lowDb } from "../../db/lowdb";
 import { SlackEventListenerFn } from "../../types/slack-listener";
 import {
-  CREATE_DICT_CALLBACK_ID,
   DICT_DESC_BLOCK_ID,
   DICT_TITLE_BLOCK_ID,
+  UPDATE_DICT_CALLBACK_ID,
 } from "../constants";
 
-export const createDictSubmissionListener: SlackEventListenerFn<
+export const updateDictSubmissionListener: SlackEventListenerFn<
   "interactive"
 > = async ({ body, ack }) => {
   await ack();
 
   if (
     body.type !== "view_submission" ||
-    body.view.callback_id !== CREATE_DICT_CALLBACK_ID
+    body.view.callback_id !== UPDATE_DICT_CALLBACK_ID
   ) {
     return;
   }
@@ -27,5 +27,5 @@ export const createDictSubmissionListener: SlackEventListenerFn<
   );
   const title = (titleBlock as HeaderBlock).text.text;
 
-  await lowDb.save("words", { title, desc });
+  await lowDb.update("words", { title }, { title, desc });
 };

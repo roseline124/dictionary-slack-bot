@@ -94,7 +94,7 @@ export type SlackMessageListenerArgs = {
 };
 
 export type SlackInteractiveModalBody = {
-  type: "modal";
+  type: "view_submission" | "modal";
   team: { id: string; domain: string };
   user: {
     id: string;

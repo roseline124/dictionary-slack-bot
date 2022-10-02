@@ -1,11 +1,10 @@
 import { webClient } from "../clients/web-client";
 import { lowDb } from "../db/lowdb";
 import { SlackBotEvent, SlackEventListenerFn } from "../types/slack-listener";
-import { CREATE_DICT_CALLBACK_ID } from "./create-dict/constants";
+import { CREATE_DICT_CALLBACK_ID } from "./constants";
 
 export const allMessageLinstener: SlackEventListenerFn<"message"> = async ({
   event,
-  body,
   ack,
 }) => {
   await ack();

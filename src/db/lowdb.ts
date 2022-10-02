@@ -28,6 +28,21 @@ export class LowDb {
     await this.db.write();
   }
 
+  async update<T extends keyof LowDbScheme>(
+    key: T,
+    where: LowDbScheme[T] extends Array<infer R> ? Partial<R> : never,
+    data: LowDbScheme[T] extends Array<infer R> ? R : never
+  ): Promise<void> {
+    await this.db.read();
+    this.db.data ??= { [key]: [] } as unknown as LowDbScheme;
+    const index = this.db.data[key].findIndex((row) =>
+      // @ts-ignore
+      Object.keys(where).every((field) => row[field] === where[field])
+    );
+    this.db.data[key][index] = data as any;
+    await this.db.write();
+  }
+
   async getOne<T extends keyof LowDbScheme>(
     key: T,
     where: LowDbScheme[T] extends Array<infer R> ? Partial<R> : never
