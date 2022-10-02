@@ -12,7 +12,10 @@ export const createDictSubmissionListener: SlackEventListenerFn<
 > = async ({ body, ack }) => {
   await ack();
 
-  if (body.view.callback_id !== CREATE_DICT_CALLBACK_ID) {
+  if (
+    body.type !== "modal" ||
+    body.view.callback_id !== CREATE_DICT_CALLBACK_ID
+  ) {
     return;
   }
 

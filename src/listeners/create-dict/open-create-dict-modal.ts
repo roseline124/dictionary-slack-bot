@@ -1,21 +1,13 @@
 import { webClient } from "../../clients/web-client";
-import { SlackEventListenerFn } from "../../types/slack-listener";
 import {
   CREATE_DICT_CALLBACK_ID,
   CREATE_DICT_DESC_BLOCK_ID,
   CREATE_DICT_TITLE_BLOCK_ID,
 } from "./constants";
 
-export const createDictCommandLinstener: SlackEventListenerFn<
-  "slash_commands"
-> = async ({ body, ack }) => {
-  await ack();
-  if (body.command !== "/create-dict") {
-    return;
-  }
-
+export const openCreateDictModal = async (triggerId: string, title: string) => {
   await webClient.views.open({
-    trigger_id: body.trigger_id,
+    trigger_id: triggerId,
     view: {
       type: "modal",
       callback_id: CREATE_DICT_CALLBACK_ID,
@@ -38,7 +30,7 @@ export const createDictCommandLinstener: SlackEventListenerFn<
           block_id: CREATE_DICT_TITLE_BLOCK_ID,
           text: {
             type: "plain_text",
-            text: body.text,
+            text: title,
             emoji: true,
           },
         },
@@ -47,7 +39,7 @@ export const createDictCommandLinstener: SlackEventListenerFn<
           block_id: CREATE_DICT_DESC_BLOCK_ID,
           label: {
             type: "plain_text",
-            text: `'${body.text}'에 대해 설명을 작성해주세요 :)`,
+            text: `'${title}'에 대해 설명을 작성해주세요 :)`,
             emoji: true,
           },
           element: {

@@ -93,8 +93,8 @@ export type SlackMessageListenerArgs = {
   ack: Ack;
 };
 
-export type SlackInteractiveBody = {
-  type: string;
+export type SlackInteractiveModalBody = {
+  type: "modal";
   team: { id: string; domain: string };
   user: {
     id: string;
@@ -137,7 +137,54 @@ export type SlackInteractiveBody = {
   enterprise: null;
 };
 
+export type SlackInteractiveButtonBody = {
+  type: "block_actions";
+  user: {
+    id: string;
+    username: string;
+    name: string;
+    team_id: string;
+  };
+  api_app_id: string;
+  token: string;
+  container: {
+    type: string;
+    message_ts: string;
+    channel_id: string;
+    is_ephemeral: false;
+  };
+  trigger_id: string;
+  team: { id: string; domain: string };
+  enterprise: null;
+  is_enterprise_install: false;
+  channel: { id: string; name: string };
+  message: {
+    bot_id: string;
+    type: string;
+    text: string;
+    user: string;
+    ts: string;
+    app_id: string;
+    team: string;
+    blocks: Block[];
+  };
+  state: { values: {} };
+  response_url: string;
+  actions: {
+    action_id: string;
+    block_id: string;
+    text: {
+      type: string;
+      text: string;
+      emoji: true;
+    };
+    value: string;
+    type: string;
+    action_ts: string;
+  }[];
+};
+
 export type SlackViewSubmissionListenerArgs = {
-  body: SlackInteractiveBody;
+  body: SlackInteractiveModalBody | SlackInteractiveButtonBody;
   ack: Ack;
 };
