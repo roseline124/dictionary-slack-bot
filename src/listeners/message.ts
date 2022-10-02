@@ -43,7 +43,12 @@ export const allMessageLinstener: SlackEventListenerFn<"app_mention"> = async ({
   const blocks: KnownBlock[] = [
     {
       type: "section",
-      text: { type: "mrkdwn", text: word?.desc ?? "흠... 잘 모르겠군!" },
+      text: {
+        type: "mrkdwn",
+        text: word?.desc
+          ? `*${word?.title}*\n${word?.desc}`
+          : "흠... 잘 모르겠군!",
+      },
     },
   ];
 
