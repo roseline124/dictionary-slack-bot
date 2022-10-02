@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { SlackEventListenerFn } from "@slack/socket-mode";
 import { webClient } from "../clients/web-client";
+import { SlackEventListenerFn } from "../types/slack-listener";
 import {
   CREATE_DICT_CALLBACK_ID,
   CREATE_DICT_DESC_BLOCK_ID,

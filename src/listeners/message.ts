@@ -1,6 +1,5 @@
-// @ts-nocheck
-import type { SlackBotEvent, SlackEventListenerFn } from "@slack/socket-mode";
 import { webClient } from "../clients/web-client";
+import { SlackBotEvent, SlackEventListenerFn } from "../types/slack-listener";
 
 export const allMessageLinstener: SlackEventListenerFn<"message"> = async ({
   event,
