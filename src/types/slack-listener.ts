@@ -4,7 +4,11 @@ import { Block } from "@slack/web-api";
  * @@@@@@ custom typings @@@@@@
  */
 
-export type SlackEventTypes = "message" | "slash_commands" | "interactive";
+export type SlackEventTypes =
+  | "message"
+  | "slash_commands"
+  | "interactive"
+  | "app_mention";
 
 export type SlackEventListenerFn<EventType extends SlackEventTypes> = (
   args: SlackEventListenerFnArgs<EventType>
@@ -55,6 +59,8 @@ export type SlackEventListenerFnArgs<EventType extends SlackEventTypes> =
     ? SlackMessageListenerArgs
     : EventType extends "interactive"
     ? SlackViewSubmissionListenerArgs
+    : EventType extends "app_mention"
+    ? SlackAppMentionListenerArgs
     : { event: any; body: any; ack: Ack };
 
 export type SlackCommandListenerArgs = {
@@ -186,5 +192,34 @@ export type SlackInteractiveButtonBody = {
 
 export type SlackViewSubmissionListenerArgs = {
   body: SlackInteractiveModalBody | SlackInteractiveButtonBody;
+  ack: Ack;
+};
+
+export type SlackAppMentionEvent = {
+  type: "app_mention";
+  client_msg_id: string;
+  text: string;
+  user: string;
+  ts: string;
+  team: string;
+  blocks: Block[];
+  channel: string;
+  event_ts: string;
+};
+
+export type SlackAppMentionListenerArgs = {
+  event: SlackAppMentionEvent;
+  body: {
+    token: string;
+    team_id: string;
+    api_app_id: string;
+    event: SlackAppMentionEvent;
+    type: string;
+    event_id: string;
+    event_time: number;
+    authorizations: any;
+    is_ext_shared_channel: boolean;
+    event_context: string;
+  };
   ack: Ack;
 };

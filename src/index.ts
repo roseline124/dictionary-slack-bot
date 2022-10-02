@@ -8,7 +8,7 @@ import { createDictButtonLinstener } from "./listeners/create-dict/create-dict-b
 import { updateDictCommandLinstener } from "./listeners/update-dict/update-dict-slash-command";
 import { updateDictSubmissionListener } from "./listeners/update-dict/update-dict-submission";
 
-socketClient.on("message", allMessageLinstener);
+socketClient.on("app_mention", allMessageLinstener);
 socketClient.on("slash_commands", createDictCommandLinstener);
 socketClient.on("slash_commands", updateDictCommandLinstener);
 socketClient.on("interactive", createDictSubmissionListener);
