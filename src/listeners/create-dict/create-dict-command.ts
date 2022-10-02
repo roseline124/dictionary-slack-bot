@@ -3,6 +3,7 @@ import { SlackEventListenerFn } from "../../types/slack-listener";
 import {
   CREATE_DICT_CALLBACK_ID,
   CREATE_DICT_DESC_BLOCK_ID,
+  CREATE_DICT_TITLE_BLOCK_ID,
 } from "./constants";
 
 export const createDictCommandLinstener: SlackEventListenerFn<
@@ -32,6 +33,15 @@ export const createDictCommandLinstener: SlackEventListenerFn<
         text: "닫기",
       },
       blocks: [
+        {
+          type: "header",
+          block_id: CREATE_DICT_TITLE_BLOCK_ID,
+          text: {
+            type: "plain_text",
+            text: body.text,
+            emoji: true,
+          },
+        },
         {
           type: "input",
           block_id: CREATE_DICT_DESC_BLOCK_ID,
