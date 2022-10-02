@@ -1,6 +1,8 @@
-# 스피드웨건 봇
+# dictionary-slack-bot
 
-나는야 스피드웨건! 뭐든지 설명해주지.
+you can make dictionary for your workspace. (clone or fork and customize this app)
+
+the default name is dict-bot.
 
 ### slack socket mode
 

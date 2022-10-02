@@ -21,16 +21,16 @@ export const openDictModal = async (args: OpenDictModalArgs) => {
       callback_id: callbackId,
       title: {
         type: "plain_text",
-        text: modal?.title ?? "사전에 단어 추가하기",
+        text: modal?.title ?? "please describe the word",
       },
       submit: {
         type: "plain_text",
-        text: modal?.submitButtonText ?? "추가",
+        text: modal?.submitButtonText ?? "create",
         emoji: true,
       },
       close: {
         type: "plain_text",
-        text: "닫기",
+        text: "close",
       },
       blocks: [
         {
@@ -47,7 +47,7 @@ export const openDictModal = async (args: OpenDictModalArgs) => {
           block_id: DICT_DESC_BLOCK_ID,
           label: {
             type: "plain_text",
-            text: `'${wordTitle}'에 대해 설명을 작성해주세요 :)`,
+            text: `please describe '${wordTitle}' :)`,
             emoji: true,
           },
           element: {

@@ -2,7 +2,10 @@ import { KnownBlock } from "@slack/web-api";
 import { webClient } from "../clients/web-client";
 import { lowDb } from "../db/lowdb";
 import { SlackEventListenerFn } from "../types/slack-listener";
-import { CREATE_DICT_CALLBACK_ID, SLACK_APP_ID } from "./constants";
+import { CREATE_DICT_CALLBACK_ID } from "./constants";
+
+const SLACK_APP_ID = process.env.SLACK_APP_ID;
+const SLACK_APP_NAME = process.env.SLACK_APP_NAME;
 
 export const allMessageLinstener: SlackEventListenerFn<"app_mention"> = async ({
   event,
@@ -20,17 +23,16 @@ export const allMessageLinstener: SlackEventListenerFn<"app_mention"> = async ({
   }
 
   const title = event.text.replace(`<@${SLACK_APP_ID}>`, "").trim();
-  if (title === "") {
+  if (!title) {
+    const fallbackMessage =
+      `how to call ${SLACK_APP_NAME}: ` +
+      "`" +
+      `@${SLACK_APP_NAME} <word>` +
+      "`";
     await webClient.chat.postMessage({
-      text: "나는야 스피드웨건!",
+      text: "dictionary-slack-bot",
       blocks: [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: "스피드웨건 봇 부르는 방법: `@스피드웨건 봇 <궁금한 단어>`",
-          },
-        },
+        { type: "section", text: { type: "mrkdwn", text: fallbackMessage } },
       ],
       channel: event.channel,
     });
@@ -47,7 +49,7 @@ export const allMessageLinstener: SlackEventListenerFn<"app_mention"> = async ({
         type: "mrkdwn",
         text: word?.desc
           ? `*${word?.title}*\n${word?.desc}`
-          : "흠... 잘 모르겠군!",
+          : "hmmm... I don't know",
       },
     },
   ];
@@ -58,7 +60,7 @@ export const allMessageLinstener: SlackEventListenerFn<"app_mention"> = async ({
       elements: [
         {
           type: "button",
-          text: { type: "plain_text", text: "단어 추가하기", emoji: true },
+          text: { type: "plain_text", text: "create word", emoji: true },
           value: title,
           action_id: CREATE_DICT_CALLBACK_ID,
         },
@@ -67,7 +69,7 @@ export const allMessageLinstener: SlackEventListenerFn<"app_mention"> = async ({
   }
 
   await webClient.chat.postMessage({
-    text: "나는야 스피드웨건!",
+    text: `create word`,
     blocks,
     channel: event.channel,
   });
