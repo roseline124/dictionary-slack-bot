@@ -1,4 +1,4 @@
-require("dotenv").config(); // 항상 맨 첫째줄에
+require("dotenv").config(); // always place it into first line
 
 import { socketClient } from "./clients/socket-client";
 import { allMessageLinstener } from "./listeners/message";
